@@ -1,2 +1,6 @@
  # Práctica 0
-HOLA QUE TAL
+Probando el VSCode...
+
+***********************
+**  Mi segundo cambio....
+*************************
