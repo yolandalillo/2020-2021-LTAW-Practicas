@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Definimos el lenguaje que queremos, la gramatica
+es un lenguaje que solo tiene la marca raíz y solo se
+pueden meter cadenas de texto-->
+<!DOCTYPE tienda SYSTEM "ejemplo2.dtd">
+
+<!-- Ejemplo de uso del lenguaje-->
+<tienda>
+    <producto>
+        <nombre>Alhambra II</nombre>
+        <descripcion>Placa FPGA</descripcion>
+        <stock>3 placas en la tienda</stock>
+    </producto>
+    <producto>
+        <nombre>Otra placa</nombre>
+        <stock>Tengo 10</stock>
+    </producto>
+    
+</tienda>
