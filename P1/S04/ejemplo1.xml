@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Estructura de mi tienda -->
+<!-- Metemos nuestro elemento raíz, en este caso la tienda -->
+<tienda xmlns:t1="http://yolandalillo.github.io/Tienda-1"
+        xmlns:t2="http://w3.definitions/Store/es">
+
+
+  <!-- Dentro de mi tienda tengo productos/articulos -->
+  <t1:producto>
+    Un producto
+  </t1:producto>
+
+  <t2:producto>
+    Otro producto
+  </t2:producto>
+
+</tienda>

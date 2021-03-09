@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE pirulo>
+
+<!-- Esto es un comentario -->
+
+<pirulo>
+    <pirulillo attr1="mi_atributo">
+        Uno de ellos
+    </pirulillo>
+
+    <pirulillo>
+        Otro de ellos
+    </pirulillo>
+
+</pirulo>
