@@ -1,6 +1,6 @@
 const https = require('https');
 
-const ENDPOINT = "https://www.metaweather.com/api/location/766273/";
+const ENDPOINT = "https://www.metaweather.com/api/location/44418/";
 
 let request = https.get(ENDPOINT, (res) => { 
     if (res.statusCode !== 200 ) {
