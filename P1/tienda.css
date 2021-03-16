@@ -10,3 +10,20 @@ body{
     margin-left: 450px;
     margin-top: 23px;
 }
+
+.flores, .ramos, .plantas, .regalo{
+    display: inline;
+	float: left;
+	border-radius: 0px 0px 0px 0px;
+	margin: 30px 30px 30px 75px;
+	text-align: center;
+    margin-top: 60px;
+}
+
+.flores a {
+    display: block;
+    padding: 0 20px;
+    font-family: "Segoe UI";
+    font-size: 100%;
+    color:black;
+}
