@@ -10,7 +10,7 @@ const PUERTO = 8080
 console.log("Arrancando servidor...");
 
 //-- Creamos servidor
-const server = http.createServer((req,ser) => {
+const server = http.createServer((req,res) => {
     //-- Mensaje petición recibida
     console.log("Petición recibida");
     
@@ -26,9 +26,9 @@ const server = http.createServer((req,ser) => {
   //-- Obtenemos el fichero correspondiente.
     if(myURL.pathname == '/'){
         //-- Página principal de la tienda
-        fich += "/tienda.html"; 
+        filename += "/tienda.html"; 
     }else{
-        fich += myURL.pathname.substr(1); 
+        filename += myURL.pathname.substr(1); 
     }
   //-- y quedarse con la extenson
     let ext = filename.split(".")[1];
