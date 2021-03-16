@@ -1,0 +1,14 @@
+[
+  {
+    "nombre": "Pan",
+    "stock": 0.60
+  },
+  {
+    "nombre": "Bagguette",
+    "stock": 1
+  },
+  {
+    "nombre": "Tarta de queso",
+    "stock": 8
+  }
+]
