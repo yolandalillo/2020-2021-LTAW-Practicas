@@ -12,9 +12,17 @@ const  tienda_json = fs.readFileSync(FICHERO_JSON);
 const tienda = JSON.parse(tienda_json);
 
 //-- Mostrar informacion sobre la tienda
-console.log("Productos en la tienda: " + tienda.length);
+console.log("Usuarios registrados en la tienda: " + tienda.usuarios.length);
 
-//-- Recorrer el array de productos
-tienda.forEach((element, index)=>{
-  console.log("Producto: " + (index + 1) + ": " + element["nombre"]);
+tienda.usuarios.forEach((element, usuarios)=>{
+    console.log("Usuario registrado: " + (usuarios + 1) + ": " + element["nombre"]);
+});
+
+console.log("Productos en la tienda: " + tienda.productos.length);
+tienda.productos.forEach((element, productos)=>{
+    console.log("Producto: " + (productos + 1) + ": " + element["nombre"]);
+}); 
+console.log("Pedidos pendientes: " + tienda.pedidos.length);
+tienda.pedidos.forEach((element, pedidos)=>{
+    console.log("Detalles pedido: " + (pedidos + 1) + ": " + element["nombre"] +" Cantidad para enviar: "+ element["cantidad"] + " Dirección: " + element["lugar"]);
 });
