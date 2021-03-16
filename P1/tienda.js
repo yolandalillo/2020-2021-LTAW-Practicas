@@ -44,6 +44,8 @@ const server = http.createServer((req,res) => {
         "JPG"  : "image/jpg",
         "jpeg" : "image/jpeg",
         "png"  : "image/png",
+        "ico"  : "image/x-icon"
+
     };
 
     //-- Asignar tipo de mime
@@ -69,6 +71,6 @@ const server = http.createServer((req,res) => {
 
 //-- Servidor
 server.listen(PUERTO);
-//-- Mensaje inicio
 
+//-- Mensaje inicio
 console.log("Servidor escuchando en " + PUERTO)

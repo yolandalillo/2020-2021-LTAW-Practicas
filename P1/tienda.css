@@ -1,0 +1,13 @@
+body{
+    background-image: url(Imagenes/f7.png);
+    background-size:auto;
+    margin: 0;
+	margin-bottom: 500px;
+}
+#Logo-tienda{
+    width: 150px; 
+    height: 100px;
+    margin-left: 100px;
+    margin-right: 420px;
+    margin-top: 23px;
+}
