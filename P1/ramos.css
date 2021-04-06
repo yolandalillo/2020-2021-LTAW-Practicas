@@ -5,13 +5,17 @@
 	margin: 30px 30px 30px 110px;
 	text-align: center;
     margin-top: 60px;
+    background-color: #FEB5EA;
+    font-family: sans-serif;
+
+
+
 }
 
-body{
-    background-image: url(Imagenes/f9.jpg);
-    background-size:auto;
-    margin: 0;
-	margin-bottom: 500px;
+ 
+title{
+    font-family: sans-serif;
+    text-align: center;
 }
 
 #Logo-tienda{
