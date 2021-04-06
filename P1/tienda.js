@@ -4,46 +4,47 @@ const url = require('url');
 const fs = require('fs');
 
 //-- Puerto que vamos a utilizar
-const PUERTO = 8080
+const PUERTO = 8080;
 
 //-- Mensaje 
 console.log("Arrancando servidor...");
 
 //-- Creamos servidor
-const server = http.createServer((req,res) => {
+const server = http.createServer(function(req,res) {
     //-- Mensaje petición recibida
-    console.log("Petición recibida");
+  console.log("Petición recibida");
     
   //-- Crear el objeto URL del mensaje de solitud (req)
   //-- y coger el recurso (url)
-    let myURL = url.parse(req.url, true);
+  let myURL = url.parse(req.url, true);
 
   //-- Ruta de nuestro recurso
-    console.log("Recurso recibido: " + myURL.pathname);
+  console.log("Recurso recibido: " + myURL.pathname);
 
   //-- Definir la variable fichero
-    let filename = "";
+  let filename = "";
   //-- Obtenemos el fichero correspondiente.
-    if(myURL.pathname == '/'){
+  if(myURL.pathname == '/'){
         //-- Página principal de la tienda
-        filename += "/tienda.html"; 
-    }else{
-        filename += myURL.pathname.substr(1); 
-    }
+    filename += "tienda.html"; 
+  }else{
+    filename += myURL.pathname.substr(1); 
+  }
+  console.log('Fichero a devolver: ' + filename);
+
   //-- y quedarse con la extenson
-    let ext = filename.split(".")[1];
+  let ext = filename.split(".")[1];
 
   //-- Tipo de mime solicitado
-    console.log('Tipo de dato pedido: ' + ext);
+  console.log('Tipo de dato pedido: ' + ext);
 
   //-- Tipos de mime
     const mimeType = {
         "html" : "text/html",
         "css"  : "text/css",
         "jpg"  : "image/jpg",
-        "JPG"  : "image/jpg",
-        "jpeg" : "image/jpeg",
         "png"  : "image/png",
+        "PNG"  : "image/png",
         "ico"  : "image/x-icon"
 
     };
