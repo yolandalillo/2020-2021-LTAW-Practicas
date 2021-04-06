@@ -4,3 +4,19 @@ body{
     margin: 0;
 	margin-bottom: 500px;
 }
+
+#Logo-tienda{
+    width: 495px; 
+    height: 59px;
+    margin-left: 550px;
+    margin-top: 23px;
+}
+
+.producto1, .producto2, .producto3, .producto4{
+    display: inline;
+	float: left;
+	border-radius: 0px 0px 0px 0px;
+	margin: 30px 30px 30px 110px;
+	text-align: center;
+    margin-top: 60px;
+}

@@ -5,9 +5,9 @@ body{
 	margin-bottom: 500px;
 }
 #Logo-tienda{
-    width: 395px; 
+    width: 495px; 
     height: 59px;
-    margin-left: 450px;
+    margin-left: 550px;
     margin-top: 23px;
 }
 
@@ -15,7 +15,7 @@ body{
     display: inline;
 	float: left;
 	border-radius: 0px 0px 0px 0px;
-	margin: 30px 30px 30px 75px;
+	margin: 30px 30px 30px 110px;
 	text-align: center;
     margin-top: 60px;
 }
