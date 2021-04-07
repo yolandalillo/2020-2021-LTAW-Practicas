@@ -1,12 +1,4 @@
-
-#Logo-tienda{
-    width: 495px; 
-    height: 59px;
-    margin-left: 550px;
-    margin-top: 23px;
-}
-
-.producto1, .producto2, .producto3, .producto4{
+.producto1, .producto2, .producto3, .producto4, .producto5, .producto6, .producto7, .producto8{
     display: inline;
 	float: left;
 	border-radius: 0px 0px 0px 0px;
@@ -14,5 +6,28 @@
 	text-align: center;
     margin-top: 60px;
     font-family: sans-serif;
+
+}
+
+h2{
+    text-align:center;
+    font-family: sans-serif;
+    background-color: #FEB5EA;
+    margin: 5px 500px 5px 500px;
+    border-width: 3px;
+    border-radius: 60px;
+}
+
+.Navegación{
+    text-align: start;
+    margin-left: 30px;
+    font-family: sans-serif;
+    font-size: 15px;
+    color: black;
+}
+
+.producto1 p, .producto2 p, .producto3 p, .producto4 p, .producto5 p, .producto6 p, .producto7 p, .producto8 p{
+    background-color: #FEB5EA;
+
 
 }
