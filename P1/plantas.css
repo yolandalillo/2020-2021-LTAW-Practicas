@@ -7,6 +7,7 @@
     margin-top: 60px;
     background-color: #FEB5EA;
     font-family: sans-serif;
+
 }
 
 .Navegación{
@@ -24,4 +25,9 @@ h2{
     margin: 5px 500px 5px 500px;
     border-width: 3px;
     border-radius: 60px;
+}
+
+body{
+    background-image: url(Imagenes/f9.jpg);
+
 }
