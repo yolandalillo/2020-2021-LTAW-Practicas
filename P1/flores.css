@@ -28,6 +28,9 @@ h2{
 
 .producto1 p, .producto2 p, .producto3 p, .producto4 p, .producto5 p, .producto6 p, .producto7 p, .producto8 p{
     background-color: #FEB5EA;
+}
 
+body{
+    background-image: url(Imagenes/f9.jpg);
 
 }
