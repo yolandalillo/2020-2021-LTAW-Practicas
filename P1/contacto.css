@@ -1,0 +1,16 @@
+body{
+    background-image: url(Imagenes/f4.jpg);
+    background-size:auto;
+    margin: 0;
+	margin-bottom: 500px;
+    font-family: sans-serif;
+}
+h2{
+    font-size: 50px;
+}
+#Logo-tienda{
+    width: 495px; 
+    height: 59px;
+    margin-left: 550px;
+    margin-top: 23px;
+}
