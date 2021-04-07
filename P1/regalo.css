@@ -1,0 +1,32 @@
+.producto1, .producto2, .producto3, .producto4, .producto5, .producto6, .producto7, .producto8{
+    display: inline;
+	float: left;
+	border-radius: 0px 0px 0px 0px;
+	margin: 30px 30px 30px 110px;
+	text-align: center;
+    margin-top: 60px;
+    background-color: #FEB5EA;
+    font-family: sans-serif;
+}
+
+.Navegación{
+    text-align: start;
+    margin-left: 30px;
+    font-family: sans-serif;
+    font-size: 15px;
+    color: black;
+}
+
+h2{
+    text-align:center;
+    font-family: sans-serif;
+    background-color: #FEB5EA;
+    margin: 5px 500px 5px 500px;
+    border-width: 3px;
+    border-radius: 60px;
+}
+
+body{
+    background-image: url(Imagenes/f9.jpg);
+
+}
