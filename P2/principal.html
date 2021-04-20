@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Floristería tierra viva</title>
+        <link rel="stylesheet" href="principal.css">
+        <!--Icono en la pestaña de la tienda-->
+        <link rel="icon" href="favicon.ico">
+
+    </head>
+    <body>
+        <div class="Navegación">
+            <a href="tienda.html"><b><img src="Images/logocasa.jpg" id="Logo-carro" width="50" height="50" ></b></a>
+            <a href="contacto.html"><b><img src="Images/logocontacto.jpg" id="Logo-carro" width="50" height="50" ></b></a>
+            <a href="info.html"><b><img src="Images/logoinformación.png" id="Logo-carro" width="50" height="50" ></b></a>
+            <!--No olvidar meter imagen del carrito-->
+            <a href="error.html"><b><img src="Images/logocarrito.png" id="Logo-carro" width="50" height="50" ></b></a>
+
+        </div>
+
+        <form id= "buscador" action="/search" method="post">
+            <input id="caja" autocomplete=off placeholder="Encuentra tu ramo" type=search name="busqueda" list="productos"/>
+            <datalist id="productos">
+              <option id="resultado"></option>
+            </datalist>
+            <input type="submit" value="Buscar"/>
+        </form>
+
+        <div class="productos">
+            <div class="ramoprimavera">
+                <img src="Images/ramo7.PNG" width="265" height="244">
+                <a href="primavera.html"><h2>Ramo primavera</h2></a>
+                <h4>23 €</h4>
+            </div>
+            <div class="ramotoño">
+ 
+            </div>
+            <div class="ramoverano">
+
+            </div>
+            <div class="ramoinvierno">
+
+            </div>
+
+        </div>
+
+    </body>
+
+</html>
