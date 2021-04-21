@@ -2,13 +2,44 @@
     {
         "productos":[
             {
+                "nombre": "Ramo primavera",
+                "precio": "23€",
+                "stock": "10"
+
+            },
+            {
+                "nombre": "Ramo verano",
+                "precio": "22€",
+                "stock": "5"
+
+            },
+            {
+                "nombre": "Ramo otoño",
+                "precio": "18€",
+                "stock": "15"
+
+            },
+            {
+                "nombre": "Ramo invierno",
+                "precio": "20€",
+                "stock": "10"
 
             }
+
         ]
     },
     {
         "usuarios":[
             {
+                "usuario": "yolima",
+                "nombre": "Yolanda Lillo",
+                "email": "yolandalillo@gmail.com"
+
+            },
+            {
+                "usuario": "root",
+                "nombre": "Root Rooten",
+                "email": "useroot@gmail.com"
 
             }
         ]
@@ -16,7 +47,11 @@
     {
         "pedidos":[
             {
-                
+                "usuario": "",
+                "direccion": "",
+                "tarjeta": "",
+                "productos": ""
+    
             }
         ]
     }
