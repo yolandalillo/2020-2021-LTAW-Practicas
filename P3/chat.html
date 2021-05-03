@@ -14,6 +14,33 @@
         <script src="chat-client.js" defer></script>
     </head>
     <body>
+      <div class="cabecera">
+        <h1>CHAT WEB</h1>
+      </div>
+  
+      <div class="centro">
+  
+        <div class="ventana chat">
+          <h3>SALA DE CHAT</h3>
+          <p id="display"></p>
+        </div>
+  
+        <div class="Envio chat">
+          <input type="text" size="80" style="height:30px" id="msg" autocomplete="off" />
+          <button type="button" id="send">SEND</button>
+          <button onclick="help()">HELP</button>
+          <script>
+            function help() {
+              alert("Utiliza el comando '/help'");
+            }
+          </script>
+        </div>
+    
+      </div>
+  
+      <footer>
+          <a href="https://github.com/yolandalillo"><p> Chat de Yolanda Lillo</p>
+      </footer>
 
     </body>
 
