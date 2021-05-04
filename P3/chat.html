@@ -9,7 +9,6 @@
         <link rel="icon" href="favicon2.ico">
           <!-- Cargar la biblioteca Socket.IO. Nos la debe entregar el servidor -->
         <script src="/socket.io/socket.io.js"></script>
-
          <!-- Cliente que usa los Sockets.io-->
         <script src="chat-client.js" defer></script>
     </head>
@@ -17,21 +16,17 @@
       <div class="cabecera">
         <h1>CHAT WEB</h1>
       </div>
-  
       <div class="centro">
-  
-        <div class="ventanachat">
+        <div class="chat">
           <h3>CHAT ROOM</h3>
           <p id="display"></p>
         </div>
-  
         <div class="writing">
           <input type="text" size="80" style="height:30px" id="msg" autocomplete="off" />
           <button type="button" id="send">SEND</button>
         </div>
-    
       </div>
-  
+
       <footer>
           <a href="https://github.com/yolandalillo"><p> Chat created by Yolanda Lillo</p>
       </footer>
