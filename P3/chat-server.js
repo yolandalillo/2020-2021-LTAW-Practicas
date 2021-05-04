@@ -51,7 +51,7 @@ app.use('/', express.static(__dirname +'/'));
 //-- Un nuevo cliente se ha conectado!
 io.on('connection', function(socket){
 
-  //<<<<< Sumamos uno al contador >>>>>
+  //-- Sumamos uno al contador 
   cont_usu += 1;
 
   //-- Usuario conectado. Imprimir el identificador de su socket
@@ -59,7 +59,7 @@ io.on('connection', function(socket){
 
   //-- Le damos la bienvenida a través del evento 'hello'
   //-- ESte evento lo hemos creado nosotros para nuestro chat
-  socket.emit('Hola!! :)', "Bienvenido al Chat de Yolanda. Eres el usuario numero:" + cont_usu);
+  socket.emit('hello', "Bienvenido al Chat de Yolanda :) Eres el usuario numero: " + cont_usu);
 
   //-- Función de retrollamada de mensaje recibido del cliente
   socket.on('msg', (msg) => {
