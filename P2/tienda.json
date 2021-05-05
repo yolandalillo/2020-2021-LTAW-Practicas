@@ -2,26 +2,26 @@
     {
         "productos":[
             {
-                "nombre": "Ramo primavera",
-                "precio": "23€",
+                "nombre": "Ramo",
+                "precio": "20€",
                 "stock": "10"
 
             },
             {
-                "nombre": "Ramo verano",
-                "precio": "22€",
+                "nombre": "Planta",
+                "precio": "12€",
                 "stock": "5"
 
             },
             {
-                "nombre": "Ramo otoño",
-                "precio": "18€",
+                "nombre": "Flor",
+                "precio": "2€",
                 "stock": "15"
 
             },
             {
-                "nombre": "Ramo invierno",
-                "precio": "20€",
+                "nombre": "Terrario",
+                "precio": "15€",
                 "stock": "10"
 
             }
