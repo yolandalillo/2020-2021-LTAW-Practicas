@@ -14,26 +14,37 @@
         <div>
             <img src="Images/icono.PNG" id="Logo-tienda">
         </div>
+        <!--
         <div class="Navegación">
             <a href="principal.html"><b><img src="Images/logocasa.jpg" id="Logo-casa" width="50" height="50" ></b></a>
             <b><img src="Images/logocontacto.jpg" id="Logo-contacto" width="50" height="50" ></b>
             <a href="info.html"><b><img src="Images/logoinformación.png" id="Logo-informacion" width="50" height="50" ></b></a>
-            <!--No olvidar meter imagen del carrito-->
             <a href="carro.html"><b><img src="Images/logocarrito.png" id="Logo-carro" width="50" height="50" ></b></a>
-        </div>
-
-        <form id= "buscador" action="/search" method="post">
-            <input id="caja" autocomplete=off placeholder="Encuentra tu ramo" type=search name="busqueda" list="productos"/>
-            <datalist id="productos">
-              <option id="resultado"></option>
-            </datalist>
-            <input type="submit" value="Buscar"/>
+        </div>-->
+        <p>Introduce producto que desea buscar</p>
+        <form action="/buscar">
+            <input type="text" placeholder="Buscar en Floristería tierra viva" id="caja">
+            <p id="display1"></p>
         </form>
+            
         <div class="productos">
             <a href="/producto1"><img src="Images/ramo7.PNG" width="265" height="244"></a>
+            <form action="/producto1" method="get">
+                <input type="submit" value="Ramo"/>
+            </form>
             <a href="/producto2"><img src="Images/planta.PNG" width="265" height="244"></a>
+            <form action="/producto2" method="get">
+                <input type="submit" value="Planta"/>
+            </form>
             <a href="/producto3"><img src="Images/flor.PNG" width="265" height="244"></a>
+            <form action="/producto3" method="get">
+                <input type="submit" value="Flor"/>
+            </form>
             <a href="/producto4"><img src="Images/terrario.PNG" width="265" height="244"></a>
+            
+            <form action="/producto4" method="get">
+                <input type="submit" value="Terrario"/>
+            </form>
         </div>
     </body>
 </html>
