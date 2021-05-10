@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>TRAMITANDO PEDIDO - Floristería tierra viva</title>
+    </head>
+    <body>
+        <img src="Images/logocarrito.png" id="Logo-carro" width="50" height="50" >
+        <br>
+        <p>PRODUCTOS</p>
+        <p>Rellene los siguiente datos para completar su compra: </p>
+        <form action="/procesarpedido" method="get">
+            Dirección de envío:
+            <input type="text" name="dirección"/>
+            Método de pago
+            tarjeta:
+            <input type="text" name="tarjeta"/>
+            <input type="submit" value="Comprar"/>
+        </form>
+        <a href="/"><button>Atrás</button></a>
+    </body>
+</html>
