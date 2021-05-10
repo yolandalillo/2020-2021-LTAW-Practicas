@@ -47,10 +47,14 @@
     {
         "pedidos":[
             {
-                "usuario": "",
-                "direccion": "",
-                "tarjeta": "",
-                "productos": ""
+                "usuario": "yolima",
+                "direccion": "Calle Amapola, 8",
+                "tarjeta": "12345",
+                "productos": [
+                    "Terrario x 1",
+                    "Ramo x 1",
+                    ""
+                ]
     
             }
         ]
