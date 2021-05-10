@@ -14,12 +14,26 @@ electron.app.on('ready', () => {
 
     //-- Crear la ventana principal de nuestra aplicación
     win = new electron.BrowserWindow({
-        width: 600,  //-- Anchura 
-        height: 400  //-- Altura
+        width: 600,   //-- Anchura 
+        height: 600,  //-- Altura
+
+        //-- Permitir que la ventana tenga ACCESO AL SISTEMA
+        webPreferences: {
+          nodeIntegration: true,
+          contextIsolation: false
+        }
     });
 
   //-- En la parte superior se nos ha creado el menu
   //-- por defecto
   //-- Si lo queremos quitar, hay que añadir esta línea
-  win.setMenuBarVisibility(false)
+  //win.setMenuBarVisibility(false)
+
+  //-- Cargar contenido web en la ventana
+  //-- La ventana es en realidad.... ¡un navegador!
+  //win.loadURL('https://www.urjc.es/etsit');
+
+  //-- Cargar interfaz gráfica en HTML
+  win.loadFile("index.html");
+
 });
