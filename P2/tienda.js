@@ -75,12 +75,140 @@ console.log("Lista de los productos disponibles");
 tienda[0]["productos"].forEach((element, index)=>{
     console.log("Producto " + (index + 1) + ": " + element.nombre +
     ", Stock: " + element.stock + ", Precio: " + element.precio);
-    productos_disp.push([element.nombre, element.descripcion, element.stock, element.precio]);
-    product_list.push(element.nombre);
+    productos_disponibles.push([element.nombre, element.descripcion, element.stock, element.precio]);
+    lista_producto.push(element.nombre);
 });
 console.log();
 
+//-- Análisis cookie
+//-- Obtener usuario
+function get_usuario(req){
+    //-- Leer cookie
+    const cookie = req.headers.cookie;
+    //-- Si hay cookie
+    if (cookie){
+        //-- Guardamos el usuario
+        //-- Obtenemos array con nombre-valor
+        let pares = cookie.split(";");
+        //-- Aquí guardamos los usuarios
+        let usuario;
 
+        //-- Recorremos el array
+        pares.forEach((element,index) => {
+            //-- Valor de los pares por separado
+            let[nombre,valor] = element.split("=");
+            //-- Nombre = Usuario
+            if(nombre.trim() === 'usuario'){
+                usuario = valor;
+            }
+        });
+        //-- Usuario no asignado a cookie
+        return usuario || null;
+    }
+}
+
+//-- Crear cookie cuando añadimos producto al carro
+function add_carrito (req, res, producto){
+    //-- Leer cookie
+    const cookie = req.headers.cookie;
+    //-- Si hay cookie
+    if (cookie){
+        //-- Obtenemos array con nombre-valor
+       let pares = cookie.split(";");
+        //-- Recorremos el array
+        pares.forEach((element,index) => {
+            //-- Valor de los pares por separado
+            let[nombre,valor] = element.split("=");
+            //-- Nombre = Carrito
+            if(nombre.trim() === 'carrito'){
+                res.setHeader('Set-Cookie', element + ':' + producto);
+            }
+
+        });
+    }
+}
+
+function get_carrito(req){
+    //-- Leer cookie
+    const cookie = req.headers.cookie;
+    //-- Si hay cookie
+    if (cookie){
+        //-- Obtenemos array con nombre-valor
+        let pares = cookie.split(";");  
+        //-- Variable para datos del carro
+        let carrito;
+        let ramo = '';
+        let numero_ramos = 0;
+        let planta = '';
+        let numero_plantas = 0;
+        let flor = '';
+        let numero_flores = 0;
+        let terrario = '';   
+        let numero_terrarios = 0;
+        pares.forEach((element,index) => {
+            //-- Valor de los pares por separado
+            let[nombre,valor] = element.split("=");
+            //-- Nombre = Carrito
+            if(nombre.trim() === 'carrito'){
+                productos = valor.split(':');
+                productos.forEach((producto) => {
+                    if(producto = 'ramo'){
+                        if(numero_ramos == 0){
+                            ramo = productos_disponibles[0][0];
+                        }
+                        numero_ramos +=1;
+                    }else if (producto = 'planta') {
+                        if(numero_plantas == 0){
+                            planta = productos_disponibles[1][0];
+                        }
+                        numero_plantas +=1;
+                    }else if (producto = 'flor'){
+                        if(numero_flores == 0){
+                            flor = productos_disponibles[2][0]
+                        }
+                        numero_flores +=1
+                    }else if (producto = 'terrario'){
+                        if(numero_terrarios == 0){
+                            terrario = productos_disponibles[3][0];
+                        }
+                        numero_terrarios +=1
+
+                    }
+                });
+                if (numero_ramos !=0){
+                    ramo += 'x' + numero_ramos;
+                }
+                if (numero_plantas !=0){
+                    planta += 'x' + numero_plantas;
+                }
+                if(numero_flores !=0){
+                    flor += 'x' + numero_flores;
+                }
+                if(numero_terrarios !=0){
+                    terrario += 'x' + numero_terrarios;
+                }
+                carrito = ramo + '<br>' + planta + '<br>' + flor + '<br>' + terrario;
+            }
+        });
+        //-- Carrito vacío
+        return carrito || null; 
+    }
+}
+
+var n;
+//-- Obtener la pagina del producto
+function get_producto(n, content) {
+  content = content.replace('NOMBRE', productos_disponibles[n][0]);
+  content = content.replace('DESCRIPCION', productos_disponibles[n][1]);
+  content = content.replace('PRECIO', productos_disponibles[n][3]);
+
+  return content;
+}
+
+//-- Creamos el servidor
+const server = http.createServer((req,res) => {
+    
+});
 
 server.listen(PUERTO);
 console.log("Escuchando en puerto: " + PUERTO);
