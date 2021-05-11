@@ -1,6 +1,5 @@
 //-- Importamos los módulos
 const http = require('http');
-const url = require('url');
 const fs = require('fs');
 
 //-- Puerto
@@ -40,7 +39,7 @@ const PRODUCTO4 = fs.readFileSync('producto4.html', 'utf-8');
 
 
 //-- Estructura tienda a partir del contenido del fichero
-const tienda = JSON.parse(tienda_json);
+const tienda = JSON.parse(tienda.json);
 
 //-- Usuarios registrados.
 let usuarios_registrados = [];
