@@ -30,9 +30,6 @@ const LOGIN_ERROR = fs.readFileSync('form-login-error.html','utf-8');
 const PEDIDO_OK = fs.readFileSync('form-pedido-OK.html','utf-8');
 const ADD = fs.readFileSync('form-add.html','utf-8');
 
-//-- Registro: Fichero JSON
-const FICHERO_JSON = "tienda.json";
-
 //-- Definir los tipos de mime
 const mime_type = {
     "html" : "text/html",
@@ -47,19 +44,17 @@ const mime_type = {
     "json" : "application/json",
 };
 
+//-- Creamos variable para saber si el carro tiene artículos
+let carrito_existe = false;
+let busqueda;
 
 //-- Registro -> Fichero JSON
 const FICHERO_JSON = "tienda.json";
-
-
-
-//-- Páginas de respuesta (HACER)
-//-- Login ON
-//-- Login OFF
-
+//-- Leer el fichero JSON (lectura sincrona)
+const  tienda_json = fs.readFileSync(FICHERO_JSON);
 
 //-- Estructura tienda a partir del contenido del fichero
-const tienda = JSON.parse(tienda.json);
+const tienda = JSON.parse(tienda_json);
 
 //-- Usuarios registrados.
 let usuarios_registrados = [];
@@ -72,7 +67,18 @@ tienda[1]["usuarios"].forEach((element, index)=>{
 
 console.log();
 
-//-- Creamos el servidor
+//-- Productos disponibles
+let productos_disponibles = [];
+let lista_producto = [];
+console.log("Lista de los productos disponibles");
+
+tienda[0]["productos"].forEach((element, index)=>{
+    console.log("Producto " + (index + 1) + ": " + element.nombre +
+    ", Stock: " + element.stock + ", Precio: " + element.precio);
+    productos_disp.push([element.nombre, element.descripcion, element.stock, element.precio]);
+    product_list.push(element.nombre);
+});
+console.log();
 
 
 
