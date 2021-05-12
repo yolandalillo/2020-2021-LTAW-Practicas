@@ -389,7 +389,7 @@ const server = http.createServer((req,res) => {
             //-- Datos pedido en JSON
             if ((direccion != null) && (tarjeta != null)){
                 let pedido = {
-                    'user': get_usuario(req),
+                    'usuario': get_usuario(req),
                     'direccion': direccion,
                     'tarjeta': tarjeta,
                     'productos': unidades_producto,
