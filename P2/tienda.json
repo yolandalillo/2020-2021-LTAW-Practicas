@@ -31,13 +31,13 @@
     {
         "usuarios":[
             {
-                "usuario": "yolima",
+                "user": "yolima",
                 "nombre": "Yolanda Lillo",
                 "email": "yolandalillo@gmail.com"
 
             },
             {
-                "usuario": "root",
+                "user": "root",
                 "nombre": "Root Rooten",
                 "email": "useroot@gmail.com"
 
@@ -47,7 +47,7 @@
     {
         "pedidos":[
             {
-                "usuario": "yolima",
+                "user": "yolima",
                 "direccion": "Calle Amapola, 8",
                 "tarjeta": "12345",
                 "productos": [
