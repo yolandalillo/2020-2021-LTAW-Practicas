@@ -29,7 +29,6 @@ const mime_type = {
     "js"   : "application/javascript",
     "jpg"  : "image/jpg",
     "JPG"  : "image/jpg",
-    "jpeg" : "image/jpeg",
     "PNG"  : "image/png",
     "png"  : "image/png",
     "ico"  : "image/x-icon",
@@ -421,7 +420,7 @@ const server = http.createServer((req,res) => {
             busqueda = result;
             content = JSON.stringify(result);
         break;
-        
+
         case 'buscar':
             if(busqueda == 'Ramo'){
                 n = 0;
