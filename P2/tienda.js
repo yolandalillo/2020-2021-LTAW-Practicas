@@ -1,7 +1,6 @@
 //-- Importamos los módulos
 const http = require('http');
 const fs = require('fs');
-const { get } = require('node:http');
 //-- Puerto
 const PUERTO = 8080;
 //-- Página principal de la web
@@ -16,8 +15,8 @@ const PRODUCTO4 = fs.readFileSync('producto4.html', 'utf-8');
 //-- Cargar la pagina del carrito
 const CARRITO = fs.readFileSync('carrito.html','utf-8');
 //-- Cargar pagina web del formulario login
-const FORMULARIO_LOGIN = fs.readFileSync('login.html','utf-8');
-const FORMULARIO_PEDIDO = fs.readFileSync('pedido.html','utf-8');
+const FORMULARIO_LOGIN = fs.readFileSync('form-login.html','utf-8');
+const FORMULARIO_PEDIDO = fs.readFileSync('form-pedido.html','utf-8');
 //-- Cargar las paginas de respuesta
 const LOGIN_OK = fs.readFileSync('form-login-OK.html','utf-8');
 const LOGIN_ERROR = fs.readFileSync('form-login-error.html','utf-8');
@@ -41,6 +40,8 @@ let carrito_existe = false;
 let busqueda;
 //-- Registro -> Fichero JSON
 const FICHERO_JSON = "tienda.json";
+const FICHERO_JSON_PRUEBA = "tienda_prueba.json";
+
 //-- Leer el fichero JSON (lectura sincrona)
 const  tienda_json = fs.readFileSync(FICHERO_JSON);
 //-- Estructura tienda a partir del contenido del fichero
@@ -212,17 +213,17 @@ const server = http.createServer((req,res) => {
         case '':
             console.log("Página principal")
             //-- Por defecto: inicio
-            content = INICIO;
+            content = PRINCIPAL;
             //-- Usuario que accede
             let usuario = get_usuario(req);
             //-- Si usuario está login
             if (usuario){
                 //-- Anadir el nombre del usuario a nuestra tienda
-                content = INICIO.replace("HTML_EXTRA", "<h2>Usuario: " + usuario + "</h2>" +
+                content = PRINCIPAL.replace("HTML_EXTRA", "<h2>Usuario: " + usuario + "</h2>" +
                 `<form action="/carrito" method="get"><input type="submit" value="Carrito"/></form>`);
             }else{
                 //-- Ir al formulario Login
-                content = INICIO.replace("HTML_EXTRA", 
+                content = PRINCIPAL.replace("HTML_EXTRA", 
                 `<form action="/login" method="get"><input type="submit" value="Login"/></form>`);
             }
         break;
@@ -327,14 +328,160 @@ const server = http.createServer((req,res) => {
             let carrito = get_carrito(req);
             content = content.replace('PRODUCTOS', carrito);
         break;
-
+        //-- Formulario login
         case 'login':
             content = FORMULARIO_LOGIN;
         break;
+        //-- Respuesta formulario login
         case 'procesarlogin':
+            //-- Nombre usuario
+            let user = myURL.searchParams.get('nombre');
+            console.log('Nombre: ' + user);
+            //-- Si está resistrado
+            if(usuarios_registrados.includes(user)){
+                console.log('El usuario' + user + 'está registrado');
+                //-- Asignar cookie
+                res.setHeader('Set-Cookie', 'user=' + user);
+                //-- Asignar página web
+                content = LOGIN_OK;
+                html_extra = user;
+                content = content.replace('HTML EXTRA', html);
+            }else{
+                content =  LOGIN_ERROR;
+            }
         break;
 
+        //-- Formulario pedido
+        case 'pedido':
+            content = FORMULARIO_PEDIDO;
+            let pedido = get_carrito(req);
+            content = content.replace('PRODUCTOS', pedido);
+        break;
+        //-- Respuesta formulario pedido
+        case 'procesarpedido':
+            //-- Guardar datos en el JSON
+            let direccion = myURL.searchParams.get('direccion');
+            let tarjeta = myURL.searchParams.get('tarjeta');
+            console.log(" La dirección de envío es: " + direccion + "\n" +
+            "El número de la tarjeta: " + tarjeta + "\n");
+            //-- Lista de productos y la cantidad
+            carro = get_carrito(req);
+            unidades_producto = carro.split('<br>');
+            console.log(unidades_producto);
+            //-- Guardar productos comprados
+            let lista_productos = [];
+            let lista_unidades = [];
+            //-- Guardar productos y actualizar stock
+            unidades_producto.forEach((element, index) => {
+                let[producto,unidades] = element.split('x');
+                lista_productos.push(producto);
+                lista_unidades.push(unidades);
+            });
+            //-- Actualizar stock
+            tienda[0]['productos'].forEach((element,index) => {
+                console.log("Producto " + (index + 1) + ": " + element.nombre);
+                console.log(lista_productos[index]);
+                if(element.nombre == lista_productos[index]){
+                    element.stock =  element.stock - lista_unidades[index];
+
+                }
+            });
+            //-- Datos pedido en JSON
+            if ((direccion != null) && (tarjeta != null)){
+                let pedido = {
+                    'user': get_usuario(req),
+                    'direccion': direccion,
+                    'tarjeta': tarjeta,
+                    'productos': unidades_producto,
+                }
+                tienda[2]['pedidos'].push(pedido);
+                let myTienda = JSON.stringify(tienda, null, 4);
+                fs.writeFileSync(FICHERO_JSON_PRUEBA, myTienda);
+            }
+            //-- Confirmamos el pedido del usuario
+            console.log('Pedido realizado con éxito');
+            content = PEDIDO_OK;
+        break;
+        case 'productos':
+            console.log('Pide los productos')
+            content_type = mime_type['json'];
+            let param1 = myURL.searchParams.get(param1);
+ 
+            param1 = param1.toUpperCase();
+            console.log('Parametro:' + param1);
+            let result = [];
+
+            for (let prod of lista_productos ){
+                prodU = prod.toUpperCase();
+                if(prodU.startsWith(param1)){
+                    result.push(prod);
+
+                }
+            }
+            busqueda = result;
+            content = JSON.stringify(result);
+        break;
+        
+        case 'buscar':
+            if(busqueda == 'Ramo'){
+                n = 0;
+                content = PRODUCTO1;
+                content = get_producto(n,content);
+            }else if(busqueda == 'Planta'){
+                n = 1;
+                content = PRODUCTO2;
+                content = get_producto(n,content);
+            }else if(busqueda == 'Flor'){
+                n = 2;
+                content = PRODUCTO3;
+                content = get_producto(n,content);
+            }else if(busqueda == 'Terrario'){
+                n = 3;
+                content = PRODUCTO4;
+                content = get_producto(n,content);
+            }
+        break;
+
+        case 'cliente.js':
+            //-- Leer JS
+            console.log('Recurso:' + recurso);
+            fs.readFile(recurso, 'utf-8', (err,data) => {
+                if(err){
+                    console.log('Error: ' + err)
+                    return;
+                }else{
+                    res.setHeader('Content-Type', mime_type["js"]);
+                    res.write(data);
+                    res.end();                   
+                }
+
+            });
+            return;
+        break;
+
+        default:
+            res.setHeader('Content-Type', mime_type["html"]);
+            res.statusCode = 404;
+            res.write(ERROR_PAGE);
+            res.end();
+        return;
+
     }
+    //-- Si hay datos en el cuerpo
+    req.on('data', (cuerpo) => {
+        //-- Datos = caracteres
+        req.setEncoding('utf8');
+        console.log(`Cuerpo (${cuerpo.length} bytes)`)
+        console.log(` ${cuerpo}`);
+      });
+  
+      //-- Fin  mensaje de solicitud
+      req.on('end', ()=> {
+        //-- Respuesta
+        res.setHeader('Content-Type', content_type);
+        res.write(content);
+        res.end()
+      });
 
 });
 
