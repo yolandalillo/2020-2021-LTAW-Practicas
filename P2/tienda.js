@@ -1,35 +1,28 @@
 //-- Importamos los módulos
 const http = require('http');
 const fs = require('fs');
-
+const { get } = require('node:http');
 //-- Puerto
 const PUERTO = 8080;
-
 //-- Página principal de la web
 const PRINCIPAL = fs.readFileSync('principal.html', 'utf-8');
-
-// Cargar página de error
+//-- Cargar página de error
 const ERROR_PAGE = fs.readFileSync('error.html','utf-8');
-
 //-- Cargar las paginas de los productos
 const PRODUCTO1 = fs.readFileSync('producto1.html', 'utf-8');
 const PRODUCTO2 = fs.readFileSync('producto2.html', 'utf-8');
 const PRODUCTO3 = fs.readFileSync('producto3.html', 'utf-8');
 const PRODUCTO4 = fs.readFileSync('producto4.html', 'utf-8');
-
-//-- Cargar la pagina del Carrito
+//-- Cargar la pagina del carrito
 const CARRITO = fs.readFileSync('carrito.html','utf-8');
-
 //-- Cargar pagina web del formulario login
 const FORMULARIO_LOGIN = fs.readFileSync('login.html','utf-8');
 const FORMULARIO_PEDIDO = fs.readFileSync('pedido.html','utf-8');
-
 //-- Cargar las paginas de respuesta
 const LOGIN_OK = fs.readFileSync('form-login-OK.html','utf-8');
 const LOGIN_ERROR = fs.readFileSync('form-login-error.html','utf-8');
 const PEDIDO_OK = fs.readFileSync('form-pedido-OK.html','utf-8');
 const ADD = fs.readFileSync('form-add.html','utf-8');
-
 //-- Definir los tipos de mime
 const mime_type = {
     "html" : "text/html",
@@ -43,19 +36,15 @@ const mime_type = {
     "ico"  : "image/x-icon",
     "json" : "application/json",
 };
-
 //-- Creamos variable para saber si el carro tiene artículos
 let carrito_existe = false;
 let busqueda;
-
 //-- Registro -> Fichero JSON
 const FICHERO_JSON = "tienda.json";
 //-- Leer el fichero JSON (lectura sincrona)
 const  tienda_json = fs.readFileSync(FICHERO_JSON);
-
 //-- Estructura tienda a partir del contenido del fichero
 const tienda = JSON.parse(tienda_json);
-
 //-- Usuarios registrados.
 let usuarios_registrados = [];
 console.log("Lista de los usuarios registrados");
@@ -92,7 +81,6 @@ function get_usuario(req){
         let pares = cookie.split(";");
         //-- Aquí guardamos los usuarios
         let usuario;
-
         //-- Recorremos el array
         pares.forEach((element,index) => {
             //-- Valor de los pares por separado
@@ -123,7 +111,6 @@ function add_carrito (req, res, producto){
             if(nombre.trim() === 'carrito'){
                 res.setHeader('Set-Cookie', element + ':' + producto);
             }
-
         });
     }
 }
@@ -198,16 +185,157 @@ function get_carrito(req){
 var n;
 //-- Obtener la pagina del producto
 function get_producto(n, content) {
-  content = content.replace('NOMBRE', productos_disponibles[n][0]);
-  content = content.replace('DESCRIPCION', productos_disponibles[n][1]);
-  content = content.replace('PRECIO', productos_disponibles[n][3]);
-
-  return content;
+    content = content.replace('NOMBRE', productos_disponibles[n][0]);
+    content = content.replace('DESCRIPCION', productos_disponibles[n][1]);
+    content = content.replace('PRECIO', productos_disponibles[n][3]);
+    return content;
 }
 
 //-- Creamos el servidor
 const server = http.createServer((req,res) => {
-    
+    //-- Construir el objeto url con la url de la solicitud
+    const myURL = new URL(req.url, 'http://' + req.headers['host']);  
+    console.log("");
+    console.log("Método: " + req.method);
+    console.log("Recurso: " + req.url);
+    console.log("Ruta: " + myURL.pathname);
+    console.log("Parametros: " + myURL.searchParams);
+    //-- Mensaje de respuesta
+    let content_type = mime_type["html"];
+    let content = "";
+
+    //-- Eliminar la / inicial
+    let recurso = myURL.pathname;
+    recurso = recurso.substr(1); 
+
+    switch(recurso){
+        case '':
+            console.log("Página principal")
+            //-- Por defecto: inicio
+            content = INICIO;
+            //-- Usuario que accede
+            let usuario = get_usuario(req);
+            //-- Si usuario está login
+            if (usuario){
+                //-- Anadir el nombre del usuario a nuestra tienda
+                content = INICIO.replace("HTML_EXTRA", "<h2>Usuario: " + usuario + "</h2>" +
+                `<form action="/carrito" method="get"><input type="submit" value="Carrito"/></form>`);
+            }else{
+                //-- Ir al formulario Login
+                content = INICIO.replace("HTML_EXTRA", 
+                `<form action="/login" method="get"><input type="submit" value="Login"/></form>`);
+            }
+        break;
+        //-- Hacemos página para cada producto
+        case 'producto1':
+            n = 0;
+            content =  PRODUCTO1;
+            content =  get_producto(n, content);
+        break;
+        case 'producto2':
+            n = 1;
+            content = PRODUCTO2;
+            content = get_producto(n,content);
+        break;
+        case 'producto3':
+            n = 2;
+            content = PRODUCTO3;
+            content = get_producto(n,content);
+        break;
+        case 'producto4':
+            n=3;
+            content = PRODUCTO4;
+            content =  get_producto(n,content);
+        break;
+        //-- Añadimos productos al carrito
+
+        case 'add_ramo':
+            content =  ADD;
+            if(carrito_existe){
+                add_carrito(req,res,'ramo');
+            }else{
+                res.setHeader('Set-Cookie', 'carrito=ramo');
+                carrito_existe = true;
+            }
+            usuario_resgistrado = get_usuario(req);
+            if (usuario_resgistrado){
+                //-- Formulario login
+                content = ADD.replace("HTML_EXTRA", 
+                `<form action="/carrito" method="get"><input type="submit" value="Ir al Carrito"/></form>`);
+            }else{
+                content = ADD.replace("HTML_EXTRA", 
+                `<form action="/login" method="get"><input type="submit" value="Login"/></form>`);
+            }
+        break;
+        case 'add_planta':
+            content =  ADD;
+            if(carrito_existe){
+                add_carrito(req,res,'planta');
+            }else{
+                res.setHeader('Set-Cookie', 'carrito=ramo');
+                carrito_existe = true;
+            }
+            usuario_resgistrado = get_usuario(req);
+            if (usuario_resgistrado){
+                //-- Formulario login
+                content = ADD.replace("HTML_EXTRA", 
+                `<form action="/carrito" method="get"><input type="submit" value="Ir al Carrito"/></form>`);
+            }else{
+                content = ADD.replace("HTML_EXTRA", 
+                `<form action="/login" method="get"><input type="submit" value="Login"/></form>`);
+            }
+        break;
+        case 'add_flor':
+            content =  ADD;
+            if(carrito_existe){
+                add_carrito(req,res,'flor');
+            }else{
+                res.setHeader('Set-Cookie', 'carrito=ramo');
+                carrito_existe = true;
+            }
+            usuario_resgistrado = get_usuario(req);
+            if (usuario_resgistrado){
+                //-- Formulario login
+                content = ADD.replace("HTML_EXTRA", 
+                `<form action="/carrito" method="get"><input type="submit" value="Ir al Carrito"/></form>`);
+            }else{
+                content = ADD.replace("HTML_EXTRA", 
+                `<form action="/login" method="get"><input type="submit" value="Login"/></form>`);
+            }
+        break;
+        case 'add_terrario':
+            content =  ADD;
+            if(carrito_existe){
+                add_carrito(req,res,'terrario');
+            }else{
+                res.setHeader('Set-Cookie', 'carrito=ramo');
+                carrito_existe = true;
+            }
+            usuario_resgistrado = get_usuario(req);
+            if (usuario_resgistrado){
+                //-- Formulario login
+                content = ADD.replace("HTML_EXTRA", 
+                `<form action="/carrito" method="get"><input type="submit" value="Ir al Carrito"/></form>`);
+            }else{
+                content = ADD.replace("HTML_EXTRA", 
+                `<form action="/login" method="get"><input type="submit" value="Login"/></form>`);
+            }
+        break;
+
+        case 'carrito':
+            content = CARRITO;
+            let carrito = get_carrito(req);
+            content = content.replace('PRODUCTOS', carrito);
+        break;
+
+        case 'login':
+            content = FORMULARIO_LOGIN;
+        break;
+        case 'procesarlogin':
+        break;
+
+    }
+
 });
 
 server.listen(PUERTO);
