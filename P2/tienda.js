@@ -341,11 +341,11 @@ const server = http.createServer((req,res) => {
             if(usuarios_registrados.includes(user)){
                 console.log('El usuario' + user + 'está registrado');
                 //-- Asignar cookie
-                res.setHeader('Set-Cookie', 'user=' + user);
+                res.setHeader('Set-Cookie', 'usuario=' + user);
                 //-- Asignar página web
                 content = LOGIN_OK;
                 html_extra = user;
-                content = content.replace('HTML EXTRA', html);
+                content = content.replace('HTML_EXTRA', html_extra);
             }else{
                 content =  LOGIN_ERROR;
             }
