@@ -405,13 +405,13 @@ const server = http.createServer((req,res) => {
         case 'productos':
             console.log('Pide los productos')
             content_type = mime_type['json'];
-            let param1 = myURL.searchParams.get(param1);
+            let param1 = myURL.searchParams.get('param1');
  
             param1 = param1.toUpperCase();
             console.log('Parametro:' + param1);
             let result = [];
 
-            for (let prod of lista_productos){
+            for (let prod of lista_producto){
                 prodU = prod.toUpperCase();
                 if(prodU.startsWith(param1)){
                     result.push(prod);
