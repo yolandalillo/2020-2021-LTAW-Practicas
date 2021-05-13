@@ -411,11 +411,10 @@ const server = http.createServer((req,res) => {
             console.log('Parametro:' + param1);
             let result = [];
 
-            for (let prod of lista_productos ){
+            for (let prod of lista_productos){
                 prodU = prod.toUpperCase();
                 if(prodU.startsWith(param1)){
                     result.push(prod);
-
                 }
             }
             busqueda = result;
@@ -460,12 +459,42 @@ const server = http.createServer((req,res) => {
         break;
 
         default:
-            res.setHeader('Content-Type', mime_type["html"]);
-            res.statusCode = 404;
-            res.write(ERROR_PAGE);
-            res.end();
-        return;
 
+            path = myURL.pathname.split('/');
+            ext = '';
+            if (path.length > 2){
+                file = path[path.length-1]
+                ext = file.split('.')[1]
+                if(path.length == 3){
+                    if (path[1].startsWith('producto')){
+                        recurso = file
+                    }else{
+                        recurso = path[1] + '/' + file
+                    }
+                }else{
+                    recurso = path[2] + '/' + file
+                }
+            }else{
+                recurso = myURL.pathname.split('/')[1];
+                ext = recurso.split('.')[1]
+            }
+            fs.readFile(recurso, (err, data) => {
+            //-- Controlar si la pagina es no encontrada.
+            //-- Devolver pagina de error personalizada, 404 NOT FOUND
+                if (err){
+                res.writeHead(404, {'Content-Type': content_type});
+                res.write(ERROR_PAGE);
+                res.end();
+                }else{
+                    //-- Todo correcto
+                    //-- Devolvemos segun el tipo de mime
+                    content_type = mime_type[ext];
+                    res.setHeader('Content-Type', content_type);
+                    res.write(data);
+                    res.end();
+                } 
+            });
+        return;
     }
     //-- Si hay datos en el cuerpo
     req.on('data', (cuerpo) => {
