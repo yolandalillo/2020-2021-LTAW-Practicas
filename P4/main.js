@@ -40,7 +40,7 @@ let win = null;
 //-------- PUNTOS DE ENTRADA DE LA APLICACION WEB
 //-- Definir el punto de entrada principal de mi aplicación web
 app.get('/', (req, res) => {
-    let path = __dirname + '/index.html';
+    let path = __dirname + '/public/chat.html';
     res.sendFile(path);
     console.log("Acceso a " + path);
 });
@@ -93,11 +93,6 @@ io.on('connection', function(socket){
   });
 });
 
-
-
-
-
-
 console.log("Arrancando electron...");
 
 //-- Punto de entrada. En cuanto electron está listo,
@@ -124,9 +119,9 @@ electron.app.on('ready', () => {
   //-- Cargar interfaz gráfica en HTML
   win.loadFile("index.html");
 
-  //-- Mandar IP
-    ip = 'http://' + ip.address() + ':' + PUERTO;
-    win.webContents.send('Imprimos la IP', ip);
+  win.on('ready-to-show', () => {
+        win.webContents.send('ip', 'http://' + ip.address() + ':' + PUERTO);
+  });
 });
 
 
