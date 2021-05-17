@@ -8,16 +8,30 @@ const info1 = document.getElementById("info1");
 const info2 = document.getElementById("info2");
 const info3 = document.getElementById("info3");
 const info4 = document.getElementById("info4");
+const directorio = document.getElementById("info5");
+const arquitectura = document.getElementById("info6");
+const plataforma = document.getElementById("info7");
 const usuarios = document.getElementById("usuarios");
 const btn_test = document.getElementById("btn_test");
 const display = document.getElementById("display");
 
+
 //-- Acceder a la API de node para obtener la info
 //-- Sólo es posible si nos han dado permisos desde
 //-- el proceso princpal
+//-- Versión de Node
 info1.textContent = process.versions.node;
+//-- Versión de Chrome
 info2.textContent = process.versions.chrome;
+//-- Versión electron
 info3.textContent = process.versions.electron;
+//-- Arquitectura
+arquitectura.textContent = process.arch;
+//-- Plataforma
+plataforma.textContent = process.platform;
+//-- Directorio
+directorio.textContent = process.cwd();
+//-- Inicializar contador usuarios
 usuarios.innerHTML = 0;
 
 btn_test.onclick = () => {
