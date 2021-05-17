@@ -2,8 +2,6 @@ const electron = require('electron');
 const ip = require('ip');
 
 //-- Obtener elementos de la interfaz
-//const btn_test = document.getElementById("btn_test");
-//const display = document.getElementById("display");
 const info1 = document.getElementById("info1");
 const info2 = document.getElementById("info2");
 const info3 = document.getElementById("info3");
@@ -14,7 +12,6 @@ const plataforma = document.getElementById("info7");
 const usuarios = document.getElementById("usuarios");
 const btn_test = document.getElementById("btn_test");
 const display = document.getElementById("display");
-
 
 //-- Acceder a la API de node para obtener la info
 //-- Sólo es posible si nos han dado permisos desde
@@ -36,7 +33,6 @@ usuarios.innerHTML = 0;
 
 btn_test.onclick = () => {
     console.log("Botón ON!");
-
     //-- Enviar mensaje al proceso principal
     electron.ipcRenderer.invoke('test', "Probando, probando.... !!");
 }
@@ -45,9 +41,10 @@ btn_test.onclick = () => {
 electron.ipcRenderer.on('ip', (event, message) => {
     console.log("Recibida Ip: " + message);
     info4.innerHTML = message;
+    //-- Generar el codigo qr de la url
 });
 
-//-- Mensaje recibido del proceso MAIN para el numero de users
+//-- Mensaje recibido del proceso MAIN para el numero de usuarios
 electron.ipcRenderer.on('usuarios', (event, message) => {
     console.log("Recibido numero de usuarios: " + message);
     usuarios.innerHTML = message;
