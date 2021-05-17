@@ -34,7 +34,7 @@ electron.ipcRenderer.on('ip', (event, message) => {
 });
 
 //-- Mensaje recibido del proceso MAIN para el numero de users
-electron.ipcRenderer.on('list', (event, message) => {
+electron.ipcRenderer.on('usuarios', (event, message) => {
     console.log("Recibido numero de usuarios: " + message);
     usuarios.innerHTML = message;
 });
