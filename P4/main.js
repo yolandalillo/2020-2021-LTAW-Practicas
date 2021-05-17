@@ -53,7 +53,9 @@ app.use(express.static('public'));
 
 io.on('connection', function(socket){
     //-- Sumamos uno al contador 
-    cont_usu += 1;
+  cont_usu += 1;
+  //-- Enviar al render
+  win.webContents.send('usuarios', cont_usu);
     
   //-- Usuario conectado. Imprimir el identificador de su socket
   console.log('--> Usuario conectado!. Socket id: ' + socket.id);
@@ -68,6 +70,8 @@ io.on('connection', function(socket){
 
     //-- Enviar el mensaje a TODOS los clientes que estén conectados
     io.emit('msg', msg);
+    //-- Enviar al render
+    win.webContents.send('msg', msg);
   })
 
   socket.on('cmd', (msg) => {
@@ -90,6 +94,8 @@ io.on('connection', function(socket){
     console.log('--> Usuario Desconectado. Socket id: ' + socket.id);
     //<<<<< Restamos uno al contador >>>>>
     cont_usu -= 1;
+      //-- Enviar al render
+    win.webContents.send('usuarios', cont_usu);
   });
 });
 
@@ -120,7 +126,7 @@ electron.app.on('ready', () => {
   win.loadFile("index.html");
 
   win.on('ready-to-show', () => {
-        win.webContents.send('ip', 'http://' + ip.address() + ':' + PUERTO);
+    win.webContents.send('ip', 'http://' + ip.address() + ':' + PUERTO);
   });
 });
 

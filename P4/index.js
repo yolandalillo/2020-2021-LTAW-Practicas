@@ -1,6 +1,5 @@
 const electron = require('electron');
 const ip = require('ip');
-const qr = require('qrcode')
 
 //-- Obtener elementos de la interfaz
 //const btn_test = document.getElementById("btn_test");
@@ -12,7 +11,6 @@ const info4 = document.getElementById("info4");
 const usuarios = document.getElementById("usuarios");
 const btn_test = document.getElementById("btn_test");
 const display = document.getElementById("display");
-const qrc = document.getElementById("qrc");
 
 //-- Acceder a la API de node para obtener la info
 //-- Sólo es posible si nos han dado permisos desde
@@ -21,12 +19,6 @@ info1.textContent = process.versions.node;
 info2.textContent = process.versions.chrome;
 info3.textContent = process.versions.electron;
 usuarios.innerHTML = 0;
-
-//-- código QR
-const src = 'http://' + ip.address() + ':' + '8080';
-qr.toDataURL(src, function (err, url) {
-    qrc.src = url;
-});
 
 btn_test.onclick = () => {
     console.log("Botón ON!");
