@@ -59,6 +59,8 @@ io.on('connection', function(socket){
     
   //-- Usuario conectado. Imprimir el identificador de su socket
   console.log('--> Usuario conectado!. Socket id: ' + socket.id);
+  //-- Mensaje para depurar
+  console.log('Los usuarios conectados son '+ cont_usu);
 
   //-- Le damos la bienvenida a través del evento 'hello'
   //-- ESte evento lo hemos creado nosotros para nuestro chat
@@ -92,10 +94,14 @@ io.on('connection', function(socket){
   //-- Usuario desconectado. Imprimir el identificador de su socket
   socket.on('disconnect', function(){
     console.log('--> Usuario Desconectado. Socket id: ' + socket.id);
+
     //<<<<< Restamos uno al contador >>>>>
     cont_usu -= 1;
       //-- Enviar al render
     win.webContents.send('usuarios', cont_usu);
+    //-- Mensaje de depuración
+    console.log('Los usuarios conectados son '+ cont_usu);
+
   });
 });
 
@@ -137,6 +143,8 @@ electron.ipcMain.handle('test', (event, msg) => {
   console.log("-> Mensaje: " + msg);
   //-- Enviar mensaje de prueba
   io.send(msg);
+  win.webContents.send('msg', msg);
+
 });
 
 //-- Lanzar el servidor HTTP
